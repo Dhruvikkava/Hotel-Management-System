@@ -1,0 +1,227 @@
+<?php session_start();?>
+<?php
+if(!isset($_SESSION['username']))
+{
+    header('location:home.php');
+}
+?>
+<?php
+    include 'conn.php';
+
+        $dates = $_GET['id'];
+        $selectquery = "SELECT * FROM `bookroom` WHERE date_of_booking = '$dates'";
+        $showdata = mysqli_query($con,$selectquery);
+        $arrdata = mysqli_fetch_array($showdata);
+
+    if(isset($_POST['sub']))
+    {
+        $dt = $_GET['id'];
+        $dob = $_POST['dob'];
+        $roomname = $_POST['roomname'];
+        $selectrooms = $_POST['selectrooms'];
+        $number = $_POST['number'];
+        $gender = $_POST['gender'];
+        $price = $_POST['price'];
+        $floor = $_POST['floor'];
+
+        $updatequery = "UPDATE `bookroom` SET `roomname`='$roomname',`rooms`='$selectrooms',`person`='$number',
+                        `gender`='$gender',`price of rooms`='$price',`floor`='$floor',`date_of_booking`='$dob' WHERE `date_of_booking`='$dt'";
+        $query = mysqli_query($con,$updatequery);
+
+        if($query)
+            {
+                ?>
+            <script>
+                alert("Update successful");
+                location.replace('notification.php');
+            </script>
+            <?php
+            }
+        else{
+            ?>
+            <script>
+                alert("Booking not successful");
+            </script>
+            <?php
+            }
+    }
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" 
+    integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lancelot&family=Petrona:wght@200&display=swap" rel="stylesheet">
+    <title>Hotel Management System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" 
+    integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <link rel="stylesheet" href="style001.css">
+    
+    <style>
+        .header{
+            width:100%;
+            height: 120vh;
+        }
+        .slidebar{
+            float:left;
+            width:270px;
+            height: 50vh;
+            background-color: rgba(21, 255, 0, 0.342);
+            
+        }
+        .slidebar a{
+            display: block;
+            line-height: 60px;
+            text-transform: uppercase;
+            margin:0 35px;
+            text-decoration: none;
+            color: white;
+        }
+        
+        .slidebar i,span{
+            margin-right:10px;
+            font-size:18px;
+            color:lightgray;
+        }
+        .centerdiv{
+            text-align: center;
+        }
+        .bookroom{
+            margin-left:400px;
+            
+            width:450px;
+            height:100vh;
+            background:rgba(100, 148, 237, 0.418);
+        }
+        input[type="date"]{
+            margin-left:10px;
+        }
+        input[type="text"]{
+            margin-bottom:10px;
+        }
+        
+    </style>
+    
+</head>
+<body>
+    <div class="header font-weight-bold">
+        
+        <nav class="navbar navbar-expand-lg ">
+            <div class="container-fluid" fixed-top>
+                
+            <div class="navbar-brand bar" >HotelEnclave</div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+        
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active ">
+                <a class="nav-link" href="home.php">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active ">
+                    <a class="nav-link" href="rooms.php">Rooms <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active ">
+                    <a class="nav-link" href="gallary.php">Gallary<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active ">
+                    <a class="nav-link" href="about.php">About <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active ">
+                    <a class="nav-link" href="restaurant.php">Restaurant <span class="sr-only">(current)</span></a>
+                </li>
+                
+                <li class="nav-item dropdown ">
+                
+                <li class="nav-item active ">
+                    <a class="nav-link" href="contact.php">contact us <span class="sr-only">(current)</span></a>
+                </li>
+        
+                
+            </ul>
+            </div>
+            </div>
+        </nav>
+        
+        <div class="slide">
+            <div class="slidebar animate_bounceInLeft " >
+                    <a href="#" class="animate__animated animate__backInLeft" ><i class="fa fa-user-circle-o mr-2"></i><span ><?php echo $_SESSION['username'];?></span></a>
+                    <a href="bookroom.php" class="animate__animated animate__backInLeft" ><i class="fa fa-delicious mr-2 "></i><span >Book Room</span></a>
+                    <a href="apointment.php" class="animate__animated animate__backInLeft" ><i class="fa fa-comments mr-2 "></i><span >Menu Of Items</span></a>
+                    <a href="notification.php" class="animate__animated animate__backInLeft" ><i class="fa fa-info-circle mr-2 "></i><span >Notification</span></a>
+                    <a href="logout.php" class="animate__animated animate__backInLeft" ><i class="fa fa-arrow-circle-o-left mr-2 "></i><span >Logout</span></a>
+                
+            </div>
+
+            <div class="bookroom text-white px-3 animate__animated animate__bounceInRight" style="animation-duration: 3s;">
+                <form method="POST">
+                    <h2 class="px-5 py-3">Room Booking</h2>
+                    <div class="booking">
+                    
+                        
+                    <div class="form-group" style="width:390px">
+                        Enter Room name:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" value="<?php echo $arrdata['roomname']?>" name="roomname" >
+                        <select class="form-control" id="sel1" >
+                            <option>Foolowing Types of room are available:</option>
+                            <option>Executive Double Bed</option>
+                            <option>Deluxe Double Bed</option>
+                            <option>Executive KingBed</option>
+                            <option>Deluxe King Bed</optioon>
+                            
+                        </select>
+                    </div>
+                    <div class="form-group" style="width:390px">
+                        Enter Total Rooms:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" value="<?php echo $arrdata['rooms']?>" name="selectrooms" >
+                        
+                        </div>
+                    
+                    <div class="form-group" style="width:390px;">
+                    Enter no. of person:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="number"  name="number" min="1" max="2" value="<?php echo $arrdata['person']?>">
+                    </div>
+                    <div class="form-group" style="width:390px">
+                        Gender:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" value="<?php echo $arrdata['gender']?>" name="gender" >
+                        
+                    </div>
+
+                    <div class="form-group" style="width:390px">
+                        Enter Price of Rooms:&nbsp&nbsp&nbsp<input type="text" value="<?php echo $arrdata['price of rooms']?>" name="price" >
+                        <select class="form-control" id="sel1"  >
+                            <option>Foolowing Price of rooms:</option>
+                            <option>Rs.1000</option>
+                            <option>Rs.1500</option>
+                            <option>Rs.2000</option>
+                            <option>Rs.2500</option>
+                            <option>Rs.3000</option>
+                            <option>Rs.6000</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="width:390px">
+                        Enter Floor:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" value="<?php echo $arrdata['floor']?>" name="floor" >
+                    </div>
+                    <div class="form-group " style="width:390px">
+                       DATE OF BOOKING: <input  type="date" name="dob" value="<?php echo $arrdata['date_of_booking']?>">
+                    </div>
+                    
+                    <button class="btn bg-warning float-left my-3" type="submit" name="sub">UPDATE</button>
+                </form>
+            </div>
+        </div>
+        
+    </div>
+</head>
+</html>
+
